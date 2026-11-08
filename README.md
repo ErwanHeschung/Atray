@@ -17,7 +17,13 @@ Apps and games from the Start menu, Steam, Epic and GOG, sorted into your own ca
 [![Status: experimental](https://img.shields.io/badge/status-experimental-orange)](#readme-top)
 [![License: MIT](https://img.shields.io/badge/License-MIT-A374F5.svg)](LICENSE)
 
-[Features](#features) · [Getting Started](#getting-started) · [Usage](#usage) · [Configuration](#configuration) · [Architecture](#architecture)
+[Features](#features) · [Performance](#performance) · [Getting Started](#getting-started) · [Usage](#usage) · [Configuration](#configuration) · [Architecture](#architecture)
+
+<br />
+
+<a href="docs/demo.mp4"><img src="docs/demo.webp" alt="Alt+Space opens the Atray search bar; typing a few letters finds Cyberpunk 2077, Discord, then Spotify" width="800" /></a>
+
+<sub>▶ <a href="docs/demo.mp4"><b>Watch the full video</b></a> (49 s): categories, filing, the tray panel and performance.</sub>
 
 </div>
 
@@ -60,6 +66,23 @@ and lets you group things into categories you can jump to with a key.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Performance
+
+Measured on a Ryzen 7 9800X3D, Windows 11, `dist` build, 141 indexed apps.
+
+| | |
+|:-|:-|
+| Hotkey to rendered bar | **6.5 ms** median over 30 opens (max 7.9 ms) |
+| One search, all apps | **4 µs** median (p99 9 µs) |
+| Indexing Start menu, Steam, Epic and GOG | **~4 ms** (files in the OS cache) |
+| Startup to tray icon | **~0.4 s** |
+| Memory, waiting in the tray | **66 MB** working set (73 MB with the bar open) |
+| CPU, waiting in the tray | **0.4 %** of one core (gpui wakes on each display refresh) |
+| CPU, bar open and idle | **1.6 %** of one core (blinking caret) |
+| Executable | **8.3 MB**, one file, icon embedded |
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## Getting Started
 
 There is no release yet: build it from source.
@@ -81,7 +104,7 @@ cd Atray
 cargo build --profile dist
 ```
 
-The executable is `target\dist\atray.exe` (about 8 MB, with the icon embedded and no console). Copy it
+The executable is `target\dist\atray.exe` (8.3 MB, with the icon embedded and no console). Copy it
 anywhere and run it. For a faster build while hacking, use `cargo run --release`.
 
 > [!IMPORTANT]
