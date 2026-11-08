@@ -1,0 +1,16 @@
+[workspace]
+resolver = "3"
+members = ["app", "core"]
+
+[profile.release]
+# Builds de dev rapides : pas de LTO (il refait tout le link de gpui à chaque fois).
+lto = false
+incremental = true
+strip = true
+
+# Exe à distribuer : `cargo build --profile dist` → target/dist/atray.exe (plus petit, build lent).
+[profile.dist]
+inherits = "release"
+lto = true
+codegen-units = 1
+incremental = false
